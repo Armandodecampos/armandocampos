@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio Pessoal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis de Cores - Facilita a manutenção */
+        :root {
+        	--primary-color:#eee;
+            --background-light: #bbb;
+            --background-dark: #222;
+             --background-eee: #eee;
+            --text-dark: #333333;
+            --text-light: #F0F2F5;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --project-name-background: #333;
+            --project-name-text: #F0F2F5;
+        }
+
+        /* Estilos Gerais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-light); /* Cor de fundo principal */
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header - Foto Principal */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--background-dark); /* Fundo branco para o header */
+            border-bottom: 1px solid #eee;
+            position: relative;
+            box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave */
+        }
+
+        .profile-container {
+            position: absolute;
+            top: 25px; /* Mais para baixo */
+            right: 25px; /* Mais para a direita */
+            padding: 5px; /* Espaço para a borda */
+            display: flex; /* Para centralizar a imagem dentro da borda */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-pic {
+            width: 130px; /* Levemente menor */
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--background-eee); /* Borda interna branca */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .profile-container:hover .profile-pic {
+            transform: scale(1.08) rotate(3deg); /* Efeito sutil no hover */
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            margin-top: 10px;
+            font-size: 2.5em; /* Tamanho maior para o nome */
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        /* Grade de Portfólio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; /* Aumenta o espaço entre os itens */
+            padding: 30px;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .project-item {
+            background: var(--background-dark);
+            border-radius: 12px; /* Bordas mais arredondadas */
+            box-shadow: 0 6px 12px var(--shadow-color); /* Sombra mais pronunciada */
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex; /* Para organizar nome e imagem/overlay */
+            flex-direction: column;
+        }
+
+        .project-item:hover {
+            transform: translateY(-8px); /* Levanta o card no hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
+        }
+
+        .project-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            flex-grow: 1; /* Garante que a imagem e overlay ocupem o espaço restante */
+        }
+
+        .project-image-wrapper img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .project-item:hover .project-image-wrapper img {
+            transform: scale(1.1); /* Zoom um pouco maior */
+        }
+
+        .project-name {
+            background: var(--project-name-background);
+            color: var(--project-name-text);
+            padding: 15px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4em;
+            font-weight: 600;
+            border-bottom-left-radius: 12px; /* Mantém as bordas arredondadas */
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Overlay no Hover */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 17, 17, 0.95); /* Fundo um pouco mais transparente para a descrição */
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            padding: 20px; /* Mais padding */
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 12px; /* Mantém as bordas arredondadas */
+            overflow-y: auto; /* Adiciona scroll se o conteúdo for maior que o container */
+        }
+
+        .project-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay h3 { /* O nome do projeto que estava no overlay agora será removido ou ajustado */
+            display: none; /* Esconde o h3 dentro do overlay, pois o nome principal estará abaixo da imagem */
+        }
+
+        .overlay p {
+            font-size: 1em;
+            padding: 0 5px; /* Ajusta o padding para melhor leitura com scroll */
+            margin: 0; /* Remove margem padrão de parágrafos */
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .profile-container {
+                position: static;
+                margin: 0 auto 20px auto; /* Centraliza e adiciona margem inferior */
+            }
+
+            header {
+                padding-top: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* Uma coluna em telas menores */
+                padding: 15px;
+                gap: 25px;
+            }
+
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .project-name {
+                font-size: 1.2em;
+            }
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/150px-Wikipedia-logo-v2.svg.png" alt="Sua Foto Principal" class="profile-pic">
+        </div>
+        <h1>Seu Nome</h1>
+        <p>Desenvolvedor Web | Designer | Criativo</p>
+    </header>
+
+    <main class="portfolio-grid">
+        <div class="project-item" data-url="https://sonzerasso.online/">
+            <div class="project-image-wrapper">
+                <img src="https://dl.dropbox.com/scl/fi/cgk5s99ppftdwxjkr9os8/Untitled.png?rlkey=f4gzjncue37sxysxggm27925b&st=c8o6j468&dl=0" alt="Projeto 1">
+                <div class="overlay">
+                    <p>12.865 músicas! Uma seleção de rock, metal, blues, jazz, pop, folk e muito mais.</p>
+                </div>
+            </div>
+            <div class="project-name">Sonzeraso -Discoteca Online</div>
+        </div>
+        <div class="project-item" data-url="http://youtube.com">
+            <div class="project-image-wrapper">
+                <img src="https://via.placeholder.com/300" alt="Projeto 2">
+                <div class="overlay">
+                    <p>Breve descrição do projeto 2. Este projeto demonstrou minhas habilidades em design UI/UX e integração de APIs. Implementei um sistema de gerenciamento de conteúdo que permitiu uma atualização dinâmica e fácil dos dados.</p>
+                </div>
+            </div>
+            <div class="project-name">Nome do Projeto 2</div>
+        </div>
+        <div class="project-item" data-url="https://www.github.com">
+            <div class="project-image-wrapper">
+                <img src="https://via.placeholder.com/300" alt="Projeto 3">
+                <div class="overlay">
+                    <p>Breve descrição do projeto 3. Aqui, explorei conceitos de inteligência artificial e aprendizado de máquina para criar um sistema de recomendação personalizado. A otimização de algoritmos foi um ponto chave.</p>
+                </div>
+            </div>
+            <div class="project-name">Nome do Projeto 3</div>
+        </div>
+        <div class="project-item" data-url="https://www.linkedin.com">
+            <div class="project-image-wrapper">
+                <img src="https://via.placeholder.com/300" alt="Projeto 4">
+                <div class="overlay">
+                    <p>Breve descrição do projeto 4. Este foi um projeto colaborativo, onde liderei a equipe no desenvolvimento de um e-commerce responsivo. Foco em metodologias ágeis e controle de versão.</p>
+                </div>
+            </div>
+            <div class="project-name">Nome do Projeto 4</div>
+        </div>
+        </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectItems = document.querySelectorAll('.project-item');
+
+            projectItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const url = item.dataset.url;
+                    if (url) {
+                        window.open(url, '_blank');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
