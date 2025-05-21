@@ -13,7 +13,7 @@
         	--primary-color:#eee;
             --background-light: #bbb;
             --background-dark: #222;
-             --background-eee: #eee;
+            --background-eee: #eee;
             --text-dark: #333333;
             --text-light: #F0F2F5;
             --shadow-color: rgba(0, 0, 0, 0.1);
@@ -36,7 +36,6 @@
             text-align: center;
             padding: 40px 20px;
             background: var(--background-dark); /* Fundo branco para o header */
-            border-bottom: 1px solid #eee;
             position: relative;
             box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave */
         }
@@ -95,7 +94,7 @@
             position: relative;
             cursor: pointer;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            display: flex; /* Para organizar nome e imagem/overlay */
+            display: flex; /* Para organizar nome, descrição e imagem */
             flex-direction: column;
         }
 
@@ -107,7 +106,6 @@
         .project-image-wrapper {
             position: relative;
             overflow: hidden;
-            flex-grow: 1; /* Garante que a imagem e overlay ocupem o espaço restante */
         }
 
         .project-image-wrapper img {
@@ -122,6 +120,17 @@
             transform: scale(1.1); /* Zoom um pouco maior */
         }
 
+        /* Novo estilo para a descrição */
+        .project-description {
+            padding: 15px;
+            color: var(--text-light); /* Texto claro no fundo escuro */
+            background: var(--background-dark); /* Mesmo fundo do item */
+            font-size: 0.95em;
+            text-align: center;
+            max-height: 80px; /* Altura máxima para a descrição */
+            overflow-y: auto; /* Adiciona scroll se o texto for muito longo */
+        }
+
         .project-name {
             background: var(--project-name-background);
             color: var(--project-name-text);
@@ -130,43 +139,9 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.4em;
             font-weight: 600;
-            border-bottom-left-radius: 12px; /* Mantém as bordas arredondadas */
-            border-bottom-right-radius: 12px;
-        }
-
-        /* Overlay no Hover */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(17, 17, 17, 0.95); /* Fundo um pouco mais transparente para a descrição */
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            padding: 20px; /* Mais padding */
-            box-sizing: border-box;
-            text-align: center;
-            overflow-y: auto; /* Adiciona scroll se o conteúdo for maior que o container */
-        }
-
-        .project-item:hover .overlay {
-            opacity: 1;
-        }
-
-        .overlay h3 { /* O nome do projeto que estava no overlay agora será removido ou ajustado */
-            display: none; /* Esconde o h3 dentro do overlay, pois o nome principal estará abaixo da imagem */
-        }
-
-        .overlay p {
-            font-size: 1em;
-            padding: 0 5px; /* Ajusta o padding para melhor leitura com scroll */
-            margin: 0; /* Remove margem padrão de parágrafos */
+            /* Removido border-bottom-left-radius e border-bottom-right-radius, pois a descrição virá depois */
+            border-top-left-radius: 0; /* Garante que não haja borda arredondada no topo se a descrição estiver abaixo */
+            border-top-right-radius: 0;
         }
 
         /* Responsividade */
@@ -226,85 +201,85 @@
         <div class="project-item" data-url="https://sonzerasso.online/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/x2b7c07p9765x7j9zgg8w/sonzerasso.png?rlkey=tuvj069dbtt4ej524ve2bjv8s&st=0bob5qvn&dl=0" alt="Projeto 1">
-                <div class="overlay">
-                    <p>12.865 músicas! Uma seleção de rock, metal, blues, jazz, pop, folk e muito mais.</p>
-                </div>
             </div>
             <div class="project-name">Sonzeraso -Discoteca Online</div>
+            <div class="project-description">
+                <p>Uma seleção de rock, metal, blues, jazz, pop, folk e muito mais.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Veganotas/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/7v8rb0s9q0ct680xr8wyl/veganotas.png?rlkey=mp39surv4zncwisayqwp1dirk&st=1ctjojv7&dl=0" alt="Projeto 2">
-                <div class="overlay">
-                    <p>Receitas Veganas.</p>
-                </div>
             </div>
             <div class="project-name">Veganotas</div>
+            <div class="project-description">
+                <p>Receitas Veganas.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Meteoritos/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/7r2w2owus7qoskeitlwdb/meteoritos.png?rlkey=k7tzzn7brv5l292c9k0uxzevm&st=yserxlqq&dl=0" alt="Projeto 3">
-                <div class="overlay">
-                    <p>Jogo de nave espacial e meteoritos.</p>
-                </div>
             </div>
             <div class="project-name">Meteoritos</div>
+            <div class="project-description">
+                <p>Jogo de nave espacial e meteoritos.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Mapamental/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/jgm94d8ttvxynf8doyoy6/mapa-mental.png?rlkey=zj2sif0ldlg3kxut45dqz5hzo&st=3wud2oc0&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Crie baloes e setas para organizar ideias</p>
-                </div>
             </div>
             <div class="project-name">Mapa Mental</div>
+            <div class="project-description">
+                <p>Crie baloes e setas para organizar ideias</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Dado-do-mentiroso/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/igujvugmkubmub5jmxbl7/dado-do-mentiroso.png?rlkey=az92klq69jrig5jiekhl4ieeu&st=bau2l0yh&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Simule o jogo do "Dado do Mentiroso"</p>
-                </div>
             </div>
             <div class="project-name">Dado do Mentiroso</div>
+            <div class="project-description">
+                <p>Simule o jogo do "Dado do Mentiroso"</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/camera/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/ypb0mqwj9cy69dgg905uz/camera.png?rlkey=g1em3ukvn6r101gkgb8iaon7b&st=lqou10ga&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Camera simples."</p>
-                </div>
             </div>
             <div class="project-name">Camera</div>
+            <div class="project-description">
+                <p>Camera simples.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Snake-Attack/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/wpl1sy66gkk6u3n5a4icw/snack-attack.png?rlkey=ipu19n00x5dnklomg56q38ljs&st=nyh740da&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Um jogo clássico."</p>
-                </div>
             </div>
             <div class="project-name">Snack Attack</div>
+            <div class="project-description">
+                <p>Um jogo clássico.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/Labirinto/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/damm2ut8rc6qtlty1674c/labirinto.png?rlkey=wy1ehjruh3bnnd546pjbgkhzh&st=2cylkbbm&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Um jogo em criação."</p>
-                </div>
             </div>
             <div class="project-name">Labirinto</div>
+            <div class="project-description">
+                <p>Um jogo em criação.</p>
+            </div>
         </div>
         <div class="project-item" data-url="https://armandodecampos.github.io/editor-de-texto/">
             <div class="project-image-wrapper">
                 <img src="https://dl.dropbox.com/scl/fi/b4izu6z2n17p5l80tca5r/editor-de-texto.png?rlkey=bs2uz1a73zeuqgp3un274r0wx&st=id97xl6u&dl=0" alt="Projeto 4">
-                <div class="overlay">
-                    <p>Editor de texto simples."</p>
-                </div>
             </div>
             <div class="project-name">Editor de texto</div>
+            <div class="project-description">
+                <p>Editor de texto simples.</p>
+            </div>
         </div>
-        </main>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
